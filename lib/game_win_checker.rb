@@ -1,8 +1,20 @@
 # module with methods to check all 3 types of possible wins
 # diagonal/vertical/horizontal
 module GameWinChecker
-  def diagonal_win?(last_move, player_symbol, board) # rubocop:disable Metrics/AbcSize
-    return false unless diagonal(last_move)
+  def check_win?(last_move, player_symbol, board)
+    if diagonal_win?(last_move, player_symbol, board) ||
+       horizontal_win?(last_move, player_symbol, board) ||
+       vertical_win?(last_move, player_symbol, board)
+      return true
+    end
+
+    false
+  end
+
+  private
+
+  def diagonal_win?(last_move, player_symbol, board)
+    return false unless diagonal?(last_move)
     return false if board[1][1] != player_symbol
     if  (board[0][0] == board[1][1] && board[1][1] == board[2][2]) ||
         (board[0][2] == board[1][1] && board[1][1] == board[2][0])
@@ -31,8 +43,6 @@ module GameWinChecker
 
     false
   end
-
-  private
 
   def diagonal?(last_move)
     line, column = last_move
