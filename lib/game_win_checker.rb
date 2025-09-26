@@ -11,8 +11,6 @@ module GameWinChecker
     false
   end
 
-  private
-
   def diagonal_win?(last_move, player_symbol, board)
     return false unless diagonal?(last_move)
     return false if board[1][1] != player_symbol

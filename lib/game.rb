@@ -20,8 +20,6 @@ class Game
     play_round
   end
 
-  private
-
   def new_game
     @current_board.clear_board
     @turns = 1
@@ -56,13 +54,14 @@ class Game
     new_game if players_continue_input?
   end
 
-  def players_name_input(message)
-    puts message
-    gets.chomp.strip
-  end
+  private
 
-  def display_board
-    puts @current_board.board.map(&:inspect)
+  def players_continue_input?
+    puts "Do you wish to play again?"
+    player_answer = gets.chomp.strip.downcase
+    return true if %w[y yes yup].include?(player_answer)
+
+    false
   end
 
   def players_play_input
@@ -71,11 +70,12 @@ class Game
     next_play.map(&:to_i)
   end
 
-  def players_continue_input?
-    puts "Do you wish to play again?"
-    player_answer = gets.chomp.strip.downcase
-    return true if %w[y yes yup].include?(player_answer)
+  def display_board
+    puts @current_board.board.map(&:inspect)
+  end
 
-    false
+  def players_name_input(message)
+    puts message
+    gets.chomp.strip
   end
 end
